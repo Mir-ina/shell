@@ -16,6 +16,7 @@ int command_pipe[2];
  
 #define READ  0
 #define WRITE 1
+#define HOSTNAME_LEN 256
  
 /*
  * Handle commands separatly
@@ -91,9 +92,12 @@ static int n = 0; /* number of calls to 'command' */
 int main()
 {
 	printf("SIMPLE SHELL: Type 'exit' or send EOF to exit.\n");
+	char hostname[HOSTNAME_LEN];
+	gethostname(hostname, HOSTNAME_LEN);
+
 	while (1) {
 		/* Print the command prompt */
-		printf("$> ");
+		printf("%s $> ", hostname);
 		fflush(NULL);
  
 		/* Read a command line */
